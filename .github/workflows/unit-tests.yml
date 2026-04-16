@@ -28,14 +28,14 @@ jobs:
           - run_phase: GCC
             runner: ubuntu-24.04-arm
           - run_phase: GCC
-            runner: ubuntu-24.04-ppc64le
+            runner: blacksmith-4vcpu-ubuntu-2404
           - run_phase: GCC
             runner: ubuntu-24.04-s390x
           - run_phase: CLANG
           - run_phase: CLANG
             runner: ubuntu-24.04-arm
           - run_phase: CLANG
-            runner: ubuntu-24.04-ppc64le
+            runner: blacksmith-4vcpu-ubuntu-2404
           - run_phase: CLANG
             runner: ubuntu-24.04-s390x
     steps:

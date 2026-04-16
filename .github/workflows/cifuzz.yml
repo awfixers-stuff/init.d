@@ -22,7 +22,7 @@ on:
       - main
 jobs:
   Fuzzing:
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     if: github.repository == 'systemd/systemd'
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.sanitizer }}-${{ matrix.architecture }}-${{ github.ref }}

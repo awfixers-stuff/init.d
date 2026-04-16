@@ -56,7 +56,7 @@ jobs:
         include:
           - distro: arch
             release: rolling
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-O2 -D_FORTIFY_SOURCE=3"
@@ -66,7 +66,7 @@ jobs:
             shim: 0
           - distro: debian
             release: stable
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
@@ -76,7 +76,7 @@ jobs:
             shim: 0
           - distro: debian
             release: testing
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
@@ -86,7 +86,7 @@ jobs:
             shim: 1
           - distro: debian
             release: testing
-            runner: ubuntu-24.04-arm
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
@@ -96,7 +96,7 @@ jobs:
             shim: 0
           - distro: ubuntu
             release: noble
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
@@ -106,7 +106,7 @@ jobs:
             shim: 0
           - distro: ubuntu
             release: resolute
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
@@ -116,7 +116,7 @@ jobs:
             shim: 0
           - distro: fedora
             release: "43"
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: address,undefined
             llvm: 1
             cflags: "-Og"
@@ -126,7 +126,7 @@ jobs:
             shim: 0
           - distro: fedora
             release: rawhide
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
@@ -136,7 +136,7 @@ jobs:
             shim: 0
           - distro: opensuse
             release: tumbleweed
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
@@ -146,7 +146,7 @@ jobs:
             shim: 0
           - distro: centos
             release: "9"
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
@@ -156,7 +156,7 @@ jobs:
             shim: 0
           - distro: centos
             release: "10"
-            runner: ubuntu-24.04
+            runner: blacksmith-4vcpu-ubuntu-2404
             sanitizers: ""
             llvm: 0
             cflags: "-Og"
