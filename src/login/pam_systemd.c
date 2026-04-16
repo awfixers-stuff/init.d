@@ -257,6 +257,7 @@ static int acquire_user_record(pam_handle_t *pamh, UserRecord **ret_record) {
         return PAM_SUCCESS;
 }
 
+#if ENABLE_X11_SESSION
 static bool display_is_local(const char *display) {
         assert(display);
 
@@ -362,6 +363,7 @@ static int get_seat_from_display(const char *display, const char **seat, uint32_
 
         return 0;
 }
+#endif
 
 static int append_session_memory_max(pam_handle_t *pamh, sd_bus_message *m, const char *limit) {
         int r;
@@ -936,7 +938,7 @@ static void session_context_mangle(
                                 "manager-early" : "manager";
                 c->tty = NULL;
 
-        } else if (c->tty && strchr(c->tty, ':')) {
+        } else if (ENABLE_X11_SESSION && c->tty && strchr(c->tty, ':')) {
                 /* A tty with a colon is usually an X11 display, placed there to show up in utmp. We rearrange things
                  * and don't pretend that an X display was a tty. */
                 if (isempty(c->display))
@@ -970,12 +972,14 @@ static void session_context_mangle(
                 /* Chop off leading /dev prefix that some clients specify, but others do not. */
                 c->tty = skip_dev_prefix(c->tty);
 
+#if ENABLE_X11_SESSION
         if (!isempty(c->display) && !c->vtnr) {
                 if (isempty(c->seat))
                         (void) get_seat_from_display(c->display, &c->seat, &c->vtnr);
                 else if (streq(c->seat, "seat0"))
                         (void) get_seat_from_display(c->display, /* seat= */ NULL, &c->vtnr);
         }
+#endif
 
         if (c->seat && !streq(c->seat, "seat0") && c->vtnr != 0) {
                 pam_debug_syslog(pamh, debug, "Ignoring vtnr %"PRIu32" for %s which is not seat0.", c->vtnr, c->seat);
@@ -983,7 +987,11 @@ static void session_context_mangle(
         }
 
         if (isempty(c->type)) {
+#if ENABLE_X11_SESSION
                 c->type = !isempty(c->display) ? "x11" :
+#else
+                c->type = !isempty(c->display) ? "unspecified" :
+#endif
                               !isempty(c->tty) ? "tty" : "unspecified";
                 pam_debug_syslog(pamh, debug, "Automatically chose session type '%s'.", c->type);
         }
@@ -1022,7 +1030,11 @@ static void session_context_mangle(
                 case USER_DYNAMIC:
                         if (streq(c->class, "user"))
                                 c->class = user_record_is_root(ur) ? "user-early" :
+#if ENABLE_X11_SESSION
                                         (STR_IN_SET(c->type, "x11", "wayland", "mir") ? "user" : "user-light");
+#else
+                                        (STR_IN_SET(c->type, "wayland", "mir") ? "user" : "user-light");
+#endif
                         else if (streq(c->class, "background"))
                                 c->class = "background-light";
                         break;

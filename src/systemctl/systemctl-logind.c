@@ -238,7 +238,12 @@ int logind_check_inhibitors(enum action a) {
                 if (sd_session_get_class(*s, &class) < 0 || !streq(class, "user"))
                         continue;
 
-                if (sd_session_get_type(*s, &type) < 0 || !STR_IN_SET(type, "x11", "wayland", "tty", "mir"))
+                if (sd_session_get_type(*s, &type) < 0 ||
+#if ENABLE_X11_SESSION
+                    !STR_IN_SET(type, "x11", "wayland", "tty", "mir"))
+#else
+                    !STR_IN_SET(type, "wayland", "tty", "mir"))
+#endif
                         continue;
 
                 sd_session_get_tty(*s, &tty);

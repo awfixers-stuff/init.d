@@ -174,7 +174,8 @@ int sd_session_get_start_time(const char *session, uint64_t *ret_usec);
 /* Determine the (PAM) service name this session was registered by. */
 int sd_session_get_service(const char *session, char **ret_service);
 
-/* Determine the type of this session, i.e. one of "tty", "x11", "wayland", "mir", "web", or "unspecified". */
+/* Determine the type of this session, i.e. one of "tty", "wayland", "mir", "web", or "unspecified", and
+ * optionally "x11" when built with -Dx11-session=true. */
 int sd_session_get_type(const char *session, char **ret_type);
 
 /* Determine the class of this session, i.e. one of "user", "greeter" or "lock-screen". */

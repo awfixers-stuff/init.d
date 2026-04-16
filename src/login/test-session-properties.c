@@ -25,7 +25,11 @@ static BusLocator session;
 TEST(set_type) {
         _cleanup_(sd_bus_flush_close_unrefp) sd_bus* bus = NULL;
         _cleanup_(sd_bus_error_free) sd_bus_error error = SD_BUS_ERROR_NULL;
+#if ENABLE_X11_SESSION
         const char* types[] = {"tty", "x11", "wayland", "mir", "web"};
+#else
+        const char* types[] = {"tty", "wayland", "mir", "web"};
+#endif
         _cleanup_free_ char *type = NULL, *type2 = NULL;
 
         assert_se(sd_bus_open_system(&bus) >= 0);
@@ -35,7 +39,7 @@ TEST(set_type) {
         assert_se(streq(type, "tty"));
 
         /* Type can only be set by the session controller (which we're not ATM) */
-        assert_se(bus_call_method(bus, &session, "SetType", &error, NULL, "s", "x11") < 0);
+        assert_se(bus_call_method(bus, &session, "SetType", &error, NULL, "s", "wayland") < 0);
         assert_se(sd_bus_error_has_name(&error, BUS_ERROR_NOT_IN_CONTROL));
 
         assert_se(bus_call_method(bus, &session, "TakeControl", NULL, NULL, "b", true) >= 0);
@@ -86,7 +90,12 @@ TEST(set_display) {
         assert_se(bus_call_method(bus, &session, "SetDisplay", &error, NULL, "s", ":0") < 0);
         assert_se(sd_bus_error_has_name(&error, SD_BUS_ERROR_NOT_SUPPORTED));
 
-        assert_se(bus_call_method(bus, &session, "SetType", NULL, NULL, "s", "x11") >= 0);
+        assert_se(bus_call_method(bus, &session, "SetType", NULL, NULL, "s",
+#if ENABLE_X11_SESSION
+                                  "x11") >= 0);
+#else
+                                  "wayland") >= 0);
+#endif
 
         /* Non-empty display can be set */
         assert_se(bus_call_method(bus, &session, "SetDisplay", NULL, NULL, "s", ":0") >= 0);
@@ -149,7 +158,12 @@ TEST(set_idle_hint) {
         assert_se(bus_call_method(bus, &session, "SetIdleHint", &error, NULL, "b", true) < 0);
         assert_se(sd_bus_error_has_name(&error, SD_BUS_ERROR_NOT_SUPPORTED));
 
-        assert_se(bus_call_method(bus, &session, "SetType", NULL, NULL, "s", "x11") >= 0);
+        assert_se(bus_call_method(bus, &session, "SetType", NULL, NULL, "s",
+#if ENABLE_X11_SESSION
+                                  "x11") >= 0);
+#else
+                                  "wayland") >= 0);
+#endif
 
         stamp = now(CLOCK_MONOTONIC);
 

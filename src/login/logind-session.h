@@ -79,7 +79,11 @@ typedef enum SessionType {
         _SESSION_TYPE_INVALID = -EINVAL,
 } SessionType;
 
+#if ENABLE_X11_SESSION
 #define SESSION_TYPE_IS_GRAPHICAL(type) IN_SET(type, SESSION_X11, SESSION_WAYLAND, SESSION_MIR)
+#else
+#define SESSION_TYPE_IS_GRAPHICAL(type) IN_SET(type, SESSION_WAYLAND, SESSION_MIR)
+#endif
 
 typedef enum KillWhom {
         KILL_LEADER,

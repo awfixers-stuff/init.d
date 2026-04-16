@@ -1679,6 +1679,8 @@ foreach tuple : [
         conf.set10(name, have)
 endforeach
 
+conf.set10('ENABLE_X11_SESSION', get_option('x11-session'))
+
 enable_sysusers = conf.get('ENABLE_SYSUSERS') == 1
 
 foreach tuple : [['nss-mymachines', 'machined'],
@@ -3206,6 +3208,7 @@ foreach tuple : [
         ['kernel-install'],
         ['localed'],
         ['logind'],
+        ['x11-session',              conf.get('ENABLE_X11_SESSION') == 1],
         ['machined'],
         ['mountfsd'],
         ['networkd'],

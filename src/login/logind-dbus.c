@@ -918,7 +918,11 @@ int manager_create_session(
 
         if (type == _SESSION_TYPE_INVALID) {
                 if (!isempty(display))
+#if ENABLE_X11_SESSION
                         type = SESSION_X11;
+#else
+                        type = SESSION_UNSPECIFIED;
+#endif
                 else if (!isempty(tty))
                         type = SESSION_TTY;
                 else

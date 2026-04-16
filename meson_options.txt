@@ -118,6 +118,8 @@ option('oomd', type : 'boolean',
        description : 'install the userspace oom killer')
 option('logind', type : 'boolean',
        description : 'install the systemd-logind stack')
+option('x11-session', type : 'boolean', value : true,
+       description : 'X11 session type support in logind and pam_systemd (disable for Wayland-only systems)')
 option('hostnamed', type : 'boolean',
        description : 'install the systemd-hostnamed stack')
 option('localed', type : 'boolean',

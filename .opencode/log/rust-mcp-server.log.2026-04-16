@@ -1,0 +1,11 @@
+2026-04-16T04:17:31.706299Z  INFO rust_mcp_server: Starting Rust MCP Server: Args { log_level: "info", log_file: Some(".opencode/log/rust-mcp-server.log"), disabled_tools: [], workspace: None, registry: None, generate_docs: None, no_recommendations: false }
+2026-04-16T04:17:31.706881Z  INFO rust_mcp_server: Server version: 0.3.7.
+2026-04-16T04:17:31.706903Z  INFO rust_mcp_server: RMCP crate version: unknown
+2026-04-16T04:17:31.706910Z  INFO rust_mcp_server: No workspace root specified, workspace auto-detection enabled
+2026-04-16T04:17:31.716532Z  INFO serve_inner: rmcp::service: Service initialized as server peer_info=Some(InitializeRequestParams { meta: None, protocol_version: ProtocolVersion("2025-11-25"), capabilities: ClientCapabilities { experimental: None, extensions: None, roots: None, sampling: None, elicitation: None, tasks: None }, client_info: Implementation { name: "opencode", title: None, version: "1.4.6", description: None, icons: None, website_url: None } })
+2026-04-16T04:17:31.755648Z  INFO serve_inner: rmcp::service: received notification notification=InitializedNotification(NotificationNoParam { method: InitializedNotificationMethod, extensions: Extensions })
+2026-04-16T04:17:31.755954Z  INFO serve_inner: rust_mcp_server::rmcp_server: MCP client initialized
+2026-04-16T04:17:31.755977Z  INFO serve_inner: rust_mcp_server::workspace: Checking current working directory for Cargo project: Some("/home/awfixer/Projects/init.d")
+2026-04-16T04:17:31.756014Z  INFO serve_inner: rust_mcp_server::workspace: No Cargo.toml in CWD (/home/awfixer/Projects/init.d), will attempt workspace detection via client roots
+2026-04-16T04:17:31.756024Z  INFO serve_inner: rust_mcp_server::workspace: Checking client roots capability: supports_roots=false
+2026-04-16T04:17:31.756033Z  WARN serve_inner: rust_mcp_server::workspace: Client does not support roots capability; cannot auto-detect workspace

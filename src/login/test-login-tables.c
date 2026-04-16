@@ -29,7 +29,11 @@ int main(int argc, char **argv) {
         test_table(KillWhom, kill_whom, KILL_WHOM);
         test_table(SessionClass, session_class, SESSION_CLASS);
         test_table(SessionState, session_state, SESSION_STATE);
+#if ENABLE_X11_SESSION
         test_table(SessionType, session_type, SESSION_TYPE);
+#else
+        test_table_sparse(SessionType, session_type, SESSION_TYPE);
+#endif
         test_table(UserState, user_state, USER_STATE);
 
         test_sleep_handle_action();
